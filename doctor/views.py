@@ -13,18 +13,16 @@ class DoctorPagination(pagination.PageNumberPagination):
 class AvailableTimeForSpecificDoctor(filters.BaseFilterBackend):
     def filter_queryset(self, request, query_set, view):
         doctor_id = request.query_params.get("doctor_id")
-        print('doctor_id')
+        print("hh", doctor_id)
         if doctor_id:
             return query_set.filter(doctor = doctor_id)
         return query_set
-        
 
 class DoctorViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = models.Doctor.objects.all()
     pagination_class = DoctorPagination
     serializer_class = serializers.DoctorSerializers
-    filter_backends = [AvailableTimeForSpecificDoctor]
 
 class DesignationViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -40,6 +38,7 @@ class AvailableTimeViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = models.AvailableTime.objects.all()
     serializer_class = serializers.AvailableTimeSerializers
+    filter_backends = [AvailableTimeForSpecificDoctor]
     
 class ReviewleViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
