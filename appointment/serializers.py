@@ -2,7 +2,6 @@
 # jate kore jekono jaigai amra ei API take use korte parii
 # Front end er sathe back end er comunication medium tai hocche JSON
 
-
 from rest_framework import serializers
 from . import models
 
